@@ -32,7 +32,7 @@ config.read(r'..\config.ini')
 # Connect to TM1
 with TM1Service(**config['tm1srv01']) as tm1:
     cubes = tm1.cubes.get_all()
-    with open('cube_rules_info.csv', 'w', newline='') as file:
+    with open('..\Outputs\cube_rules_info.csv', 'w', newline='') as file:
         writer = csv.writer(file)
 
 

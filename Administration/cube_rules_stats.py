@@ -6,6 +6,10 @@ import os
 import csv
 import configparser
 from TM1py.Services import TM1Service
+import sys
+sys.path.insert(0, 'Functions')
+from export_functions import *
+# from directory_functions import *
 
 def set_current_directory():
     abspath = os.path.abspath(__file__)         # file absolute path
@@ -13,15 +17,7 @@ def set_current_directory():
     os.chdir(directory)
     return directory
 
-def write_elem_by_row(file, list, empty_row_start = True, empty_row_end = True):
-    if empty_row_start:
-        file.writerow([])
-    for elem in list:
-        file.writerow([elem])
-    if empty_row_end:
-        file.writerow([])
-
-CURRENT_DIRECTORY = set_current_directory()
+CURRENT_DIRECTORY = set_current_directory()     # redirecting to the current file's directory
 
 config = configparser.ConfigParser()
 # storing the credentials in a file is not recommended for purposes other than testing.
@@ -34,7 +30,6 @@ with TM1Service(**config['tm1srv01']) as tm1:
     cubes = tm1.cubes.get_all()
     with open('..\Outputs\cube_rules_info.csv', 'w', newline='') as file:
         writer = csv.writer(file)
-
 
         # cubes with SKIPCHECK
         cubes_with_skipcheck = [cube.name for cube in cubes if cube.skipcheck]
@@ -53,16 +48,16 @@ with TM1Service(**config['tm1srv01']) as tm1:
 
         # cubes ordered by the number of rule statements
         cubes.sort(key=lambda cube: len(cube.rules.rule_statements) if cube.has_rules else 0, reverse=True)
-        print("Cubes sorted by number of Rule Statements:")
         cubes_sorted_rule_statements = [cube.name for cube in cubes]
+        print("Cubes sorted by number of Rule Statements:")
         print(cubes_sorted_rule_statements)
         writer.writerow(["Cubes sorted by number of Rule Statements:"])
         write_elem_by_row(writer,cubes_sorted_rule_statements)
 
         # cubes ordered by the number of feeder statements
         cubes.sort(key=lambda cube: len(cube.rules.feeder_statements) if cube.has_rules else 0, reverse=True)
-        print("Cubes sorted by number of Feeder Statements:")
         cubes_sorted_feeder_statements = [cube.name for cube in cubes]
+        print("Cubes sorted by number of Feeder Statements:")
         print(cubes_sorted_feeder_statements)
         writer.writerow(["Cubes sorted by number of Feeder Statements:"])
         write_elem_by_row(writer,cubes_sorted_feeder_statements)

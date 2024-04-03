@@ -2,11 +2,13 @@
 Find all security groups, that are not used
 """
 import configparser
-
 from TM1py.Services import TM1Service
 import os
+import sys
+sys.path.insert(0, 'Functions')
+from export_functions import *
+from directory_functions import *
 
-# setting the current directory
 def set_current_directory():
     abspath = os.path.abspath(__file__)         # file absolute path
     directory = os.path.dirname(abspath)        # current file parent directory
@@ -14,13 +16,11 @@ def set_current_directory():
     return directory
 
 CURRENT_DIRECTORY = set_current_directory()
+print(CURRENT_DIRECTORY)
+generate_output_file = input("Would you like to generate the results in an output csv file? (Y/N):")
 
 config = configparser.ConfigParser()
-# storing the credentials in a file is not recommended for purposes other than testing.
-# it's better to setup CAM with SSO or use keyring to store credentials in the windows credential manager. Sample:
-# Samples/credentials_best_practice.py
 config.read(r'..\config.ini')
-print(config.sections())
 
 with TM1Service(**config['tm1srv01']) as tm1:
     # Get all groups
@@ -40,3 +40,10 @@ with TM1Service(**config['tm1srv01']) as tm1:
 
     # Print out the unused groups
     print(unused_groups)
+
+    if generate_output_file == 'Y':
+        with open('..\Outputs\unused_groups.csv', 'w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(["Unused security groups:"])
+            write_elem_by_row(file,unused_groups)
+

@@ -1,22 +1,40 @@
+import configparser
 import os
 import sys
+import csv
+
 from datetime import datetime
 from typing import List, Dict
 
 from TM1py.Services import TM1Service
 from TM1py.Utils import get_all_servers_from_adminhost
 
+# from export_functions import *
+# from directory_functions import *
+
+def set_current_directory():
+    abspath = os.path.abspath(__file__)         # file absolute path
+    directory = os.path.dirname(abspath)        # current file parent directory
+    os.chdir(directory)
+    return directory
+
+CURRENT_DIRECTORY = set_current_directory()
+
 # =============================================================================================================
 # START of parameters and settings
 # =============================================================================================================
+
+config = configparser.ConfigParser()
+config.read(r'..\config.ini')
+
 RESULT_FILE = r'D:\tm1_users.txt'
 
 HEADER_OR_CUSTOMER = 'UPDATE THE CONSTANT WITH A DESCRIPTIVE HEADER OF YOUR LIKING'
 
 # TM1 connection settings (IntegratedSecurityMode = 1 for now)
-ADDRESS = 'localhost'
-USER = 'wim'
-PWD = 'password'
+ADDRESS = '91.236.254.119'
+USER = 'erwan.tang'
+PWD = 'Datatilt2021'
 
 # level of detail in the output ==> 'YYYYY':
 # - character 1: whether adding a header section with information for each TM1 model (Y/N)
@@ -93,7 +111,8 @@ def inspect_users():
 
         ssl = tm1_instance.using_ssl
 
-        tm1 = TM1Service(address=ADDRESS, port=port, user=USER, password=PWD, namespace='', gateway='', ssl=ssl)
+        # tm1 = TM1Service(address=ADDRESS, port=port, user=USER, password=PWD, namespace='', gateway='', ssl=ssl)
+        tm1 = TM1Service(**config['tm1srv01'])
 
         active_configuration = tm1.server.get_active_configuration()
 

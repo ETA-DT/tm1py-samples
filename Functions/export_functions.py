@@ -10,4 +10,3 @@ def write_elem_by_row(file, list, empty_row_start = True, empty_row_end = True):
         file.writerow([elem])
     if empty_row_end:
         file.writerow([])
-

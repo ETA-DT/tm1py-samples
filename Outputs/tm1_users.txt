@@ -4,6 +4,140 @@ DESCRIPTIVE ANALYSIS OF INSTANCE USERS
 
 =============  CarSales_Test  =============
 
+Current time: 04/05/24 16:16:38
+Unknown software version: 11.8.02200.2
+Base TM1 REST API URL: http://91.236.254.119:5032/api/v1/$metadata
+TM1 data directory: d:\applications\tm1\carsales_test\data
+TM1 logging directory: d:\applications\tm1\carsales_test\log
+
+
+User audit:
+----------
+
+26 users
+	23 full admin users ('Administrator')
+	3 read/write users ('Authorized User')
+	0 read-only users ('Explorer')
+	0 disabled users
+
+
+User count:
+-----------
+
+26 users
+	23 admin users
+		23 full admin users
+		0 security admin users
+		0 data admin users
+		0 operations admin users
+
+	3 non-admin users
+		3 read/write users
+			0 write users
+			3 read users
+		0 read-only users
+
+	0 disabled users
+
+0 custom TM1 security groups
+
+
+User lists:
+-----------
+
+admin users (23):
+	Admin
+	Hugo.lim
+	Jennifer.ardon
+	Test.user
+	Virginie.jumel
+	Yasmine.ghanem
+	adel.hamache
+	amavi.atigla
+	aurele.nassara
+	badr.bouhlal
+	bruno.taboument
+	elhadj.sow
+	erwan.tang
+	franck.luciani
+	jamil.fadile
+	karima.barki
+	laurent.mariotte
+	ludovic.sant
+	mariama.diallo
+	marianne.plesse
+	mathieu.botquin
+	mehdi.taheraly
+	zied.benhmida
+
+full admin users (23):
+	Admin
+	Hugo.lim
+	Jennifer.ardon
+	Test.user
+	Virginie.jumel
+	Yasmine.ghanem
+	adel.hamache
+	amavi.atigla
+	aurele.nassara
+	badr.bouhlal
+	bruno.taboument
+	elhadj.sow
+	erwan.tang
+	franck.luciani
+	jamil.fadile
+	karima.barki
+	laurent.mariotte
+	ludovic.sant
+	mariama.diallo
+	marianne.plesse
+	mathieu.botquin
+	mehdi.taheraly
+	zied.benhmida
+
+non-admin users (3):
+	Alexandre.ngai
+	Fatma.bousnina
+	Meryam.zouabi
+
+read/write users (3):
+	Alexandre.ngai
+	Fatma.bousnina
+	Meryam.zouabi
+
+read users (3):
+	Alexandre.ngai
+	Fatma.bousnina
+	Meryam.zouabi
+
+all users (26):
+	Admin
+	Alexandre.ngai
+	Fatma.bousnina
+	Hugo.lim
+	Jennifer.ardon
+	Meryam.zouabi
+	Test.user
+	Virginie.jumel
+	Yasmine.ghanem
+	adel.hamache
+	amavi.atigla
+	aurele.nassara
+	badr.bouhlal
+	bruno.taboument
+	elhadj.sow
+	erwan.tang
+	franck.luciani
+	jamil.fadile
+	karima.barki
+	laurent.mariotte
+	ludovic.sant
+	mariama.diallo
+	marianne.plesse
+	mathieu.botquin
+	mehdi.taheraly
+	zied.benhmida
+
 all users and their groups (26):
 	Admin (1): ADMIN
 	Alexandre.ngai (0)

@@ -26,15 +26,26 @@ CURRENT_DIRECTORY = set_current_directory()
 
 config = configparser.ConfigParser()
 config.read(r'..\config.ini')
+config_dict = dict(config['tm1srv01'])
 
-RESULT_FILE = r'D:\tm1_users.txt'
+RESULT_FILE = r'..\Outputs\tm1_users.txt'
 
-HEADER_OR_CUSTOMER = 'UPDATE THE CONSTANT WITH A DESCRIPTIVE HEADER OF YOUR LIKING'
+HEADER_OR_CUSTOMER = 'DESCRIPTIVE ANALYSIS OF INSTANCE USERS'
 
 # TM1 connection settings (IntegratedSecurityMode = 1 for now)
-ADDRESS = '91.236.254.119'
-USER = 'erwan.tang'
-PWD = 'Datatilt2021'
+ADDRESS = config_dict['address']
+USER = config_dict['user']
+PWD = config_dict['password']
+
+# get TM1 models registered with the admin server
+tm1_instances_on_server = get_all_servers_from_adminhost(ADDRESS, None, True)
+tm1_instance_names = list(map((lambda x:x.name),tm1_instances_on_server))
+user_input_instance_name = input("Enter instance name: ")
+try:
+    tm1_instance_index = tm1_instance_names.index(user_input_instance_name)
+    tm1_instance_list = [tm1_instances_on_server[tm1_instance_index]]
+except ValueError:
+    raise SystemExit(f"ERROR: No instance named {user_input_instance_name}")
 
 # level of detail in the output ==> 'YYYYY':
 # - character 1: whether adding a header section with information for each TM1 model (Y/N)
@@ -43,7 +54,16 @@ PWD = 'Datatilt2021'
 # - character 4: whether adding a section to list the users in each TM1 model by their rights (Y/N)
 # - character 5: whether adding a section to list all the users in each TM1 model (Y/N)
 # - character 6: whether adding a section to list all the users in each TM1 model with their respective group memberships (Y/N)
-OUTPUT_LEVEL = 'YYYYYY'
+
+OUTPUT_LEVEL = []
+
+OUTPUT_LEVEL.append(input('Add a header section with information for each TM1 model (Y/N)'))
+OUTPUT_LEVEL.append(input('Add a section for an IBM user audit (Y/N)'))
+OUTPUT_LEVEL.append(input('Add a section to list the count of users in each TM1 model (Y/N)'))
+OUTPUT_LEVEL.append(input('Add a section to list the users in each TM1 model by their rights (Y/N)'))
+OUTPUT_LEVEL.append(input('Add a section to list all the users in each TM1 model (Y/N)'))
+OUTPUT_LEVEL.append(input('Add a section to list all the users in each TM1 model with their respective group memberships (Y/N)'))
+OUTPUT_LEVEL = ''.join(OUTPUT_LEVEL)
 OUTPUT_LEVEL = OUTPUT_LEVEL.replace(' ', '').upper()
 
 PORTS_TO_EXCLUDE = []
@@ -100,9 +120,7 @@ def inspect_users():
     if len(HEADER_OR_CUSTOMER):
         log_lines.append('\n{}\n'.format(HEADER_OR_CUSTOMER))
 
-    # get TM1 models registered with the admin server
-    tm1_instances_on_server = get_all_servers_from_adminhost(ADDRESS, None, True)
-    for tm1_instance in tm1_instances_on_server:
+    for tm1_instance in tm1_instance_list:
 
         # get TM1 server information
         port = tm1_instance.http_port_number
@@ -252,11 +270,12 @@ def inspect_users():
             output_list('Read users', read_users, users_dictionary, log_lines)
             output_list('Read-only users', read_only_users, users_dictionary, log_lines)
             output_list('Disabled users', disabled_users, users_dictionary, log_lines)
-
             output_list('Custom TM1 security groups', custom_groups, dict(), log_lines)
 
         if OUTPUT_LEVEL[4] == 'Y':
             # output list of all usernames
+            if OUTPUT_LEVEL[3] != 'Y':
+                users_dictionary = build_users_attribute_dictionary(tm1)
             output_list('All users', all_users, users_dictionary, log_lines)
 
         if OUTPUT_LEVEL[5] == 'Y':

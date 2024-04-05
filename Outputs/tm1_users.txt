@@ -1,0 +1,33 @@
+
+DESCRIPTIVE ANALYSIS OF INSTANCE USERS
+
+
+=============  CarSales_Test  =============
+
+all users and their groups (26):
+	Admin (1): ADMIN
+	Alexandre.ngai (0)
+	Fatma.bousnina (0)
+	Hugo.lim (1): ADMIN
+	Jennifer.ardon (1): ADMIN
+	Meryam.zouabi (0)
+	Virginie.jumel (1): ADMIN
+	Yasmine.ghanem (1): ADMIN
+	adel.hamache (1): ADMIN
+	amavi.atigla (1): ADMIN
+	aurele.nassara (1): ADMIN
+	badr.bouhlal (1): ADMIN
+	bruno.taboument (1): ADMIN
+	elhadj.sow (1): ADMIN
+	erwan.tang (1): ADMIN
+	franck.luciani (1): ADMIN
+	jamil.fadile (1): ADMIN
+	karima.barki (1): ADMIN
+	laurent.mariotte (1): ADMIN
+	ludovic.sant (1): ADMIN
+	mariama.diallo (1): ADMIN
+	marianne.plesse (1): ADMIN
+	mathieu.botquin (1): ADMIN
+	mehdi.taheraly (1): ADMIN
+	test.user (1): ADMIN
+	zied.benhmida (1): ADMIN

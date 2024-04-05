@@ -3,21 +3,30 @@ Get a random dimension from the TM1 model and print out its details
 """
 import configparser
 import random
-
+import os
+import csv
 from TM1py.Services import TM1Service
 
+def set_current_directory():
+    abspath = os.path.abspath(__file__)         # file absolute path
+    directory = os.path.dirname(abspath)        # current file parent directory
+    os.chdir(directory)
+    return directory
+
+CURRENT_DIRECTORY = set_current_directory()
+
 config = configparser.ConfigParser()
-#It is recommended to to store the password in windows credential manager instead of the config file\n# storing the credentials in a file is not recommended for purposes other than testing.
-# it's better to setup CAM with SSO or use keyring to store credentials in the windows credential manager. Sample:
-# Samples/credentials_best_practice.py
 config.read(r'..\config.ini')
+
+dimension_name = input('Enter dimension name: ')
 
 # Connection to TM1. Needs Address, Port, Credentials, and SSL
 with TM1Service(**config['tm1srv01']) as tm1:
-    # get random dimension from the model
-    dimension_names = tm1.dimensions.get_all_names()
-    random_number = random.randint(1, len(dimension_names))
-    dimension = tm1.dimensions.get(dimension_name=dimension_names[random_number])
+    try:
+        c = tm1.dimensions.get(dimension_name)
+    except:
+        raise SystemExit(f'No dimension named {dimension_name}')
+    dimension = tm1.dimensions.get(dimension_name=dimension_name)
 
     # iterate through hierarchies
     for hierarchy in dimension:

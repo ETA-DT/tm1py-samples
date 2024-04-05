@@ -24,7 +24,10 @@ config.read(r'..\config.ini')
 
 with TM1Service(**config['tm1srv01']) as tm1:
     # Get all groups
-    all_groups = tm1.security.get_all_groups()
+    # all_groups = tm1.security.get_all_groups()
+    # all_groups = list(tm1.elements.get_all_leaf_element_identifiers(dimension_name='}Groups',hierarchy_name='}Groups'))
+
+    # Get all users
     all_users = tm1.security.get_all_user_names()
 
     # Determine the used groups from }ClientGroups Cube
@@ -34,8 +37,6 @@ with TM1Service(**config['tm1srv01']) as tm1:
           "FROM [}ClientGroups]"
     
     assigned_users = tm1.cubes.cells.execute_mdx_dataframe(mdx=mdx)['}Clients']
-    
-    all_groups = list(tm1.elements.get_all_leaf_element_identifiers(dimension_name='}Groups',hierarchy_name='}Groups'))
     
     # Determine the unused groups
     unassigned_users = set(all_users) - set(assigned_users)

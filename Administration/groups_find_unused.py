@@ -8,7 +8,6 @@ import csv
 import sys
 sys.path.insert(0, 'Functions')
 from export_functions import *
-from directory_functions import *
 
 def set_current_directory():
     abspath = os.path.abspath(__file__)         # file absolute path

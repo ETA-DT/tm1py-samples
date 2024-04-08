@@ -1,0 +1,29 @@
+Element Name: Seasons Index: 1 Type: String
+Element Name: Quantity Index: 2 Type: Numeric
+Element Name: Unit Sale Price Index: 3 Type: Numeric
+Element Name: GROSS SALES REVENUE Index: 4 Type: Numeric
+Element Name: Returns and Allowances Index: 5 Type: Numeric
+Element Name: Cash Discount Index: 6 Type: Numeric
+Element Name: Volume Discount Index: 7 Type: Numeric
+Element Name: TOTAL DISCOUNTS AND ALLOWANCES Index: 8 Type: Numeric
+Element Name: Freight Index: 9 Type: Numeric
+Element Name: NET SALES REVENUE Index: 10 Type: Numeric
+Element Name: Unit Cost Index: 11 Type: Numeric
+Element Name: COST OF SALES Index: 12 Type: Numeric
+Element Name: GROSS MARGIN Index: 13 Type: Numeric
+Element Name: GROSS MARGIN % Index: 14 Type: Numeric
+Subset Name: BTA_Purge
+Subset Name: BTA_Subset
+Default Member: Seasons
+_ElementAttributes_Sales_Plan_Measures
+Cible_B
+Cible_LSA
+Cible_LSA_Mois
+Cible_LSA_Taille
+Cible_LSA_Taille_Mois
+Cible_YGH_2
+Sales_Plan
+Source_A
+Source_LSA
+Source_YGH
+}ElementAttributes_Sales_Plan_Measures

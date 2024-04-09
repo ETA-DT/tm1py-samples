@@ -95,3 +95,4 @@ with TM1Service(**config['tm1srv01']) as tm1:
         # writer.writerow([f'Cubes containing {dimension_name} dimension'])
         # for cube_name in cube_with_dimension:
         #     writer.writerow([cube_name])
+        # writer.writerow([f'Cubes containing {dimension_name} dimension: {tm1.cubes.search_for_dimension(dimension_name)}'])

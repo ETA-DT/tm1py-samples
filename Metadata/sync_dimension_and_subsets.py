@@ -20,9 +20,13 @@ tm1_other = TM1Service(**config['tm1srv02'])
 
 # while True:
 
-dimension_name = "dimension_test"
-dimension_master = tm1_master.dimensions.get(dimension_name=dimension_name)                 # main dimension
-dimension_other = tm1_other.dimensions.get(dimension_name=dimension_name)                   # dimension to sync
+dimension_name = input('Dimension to synchronize: ')
+try:
+    dimension_master = tm1_master.dimensions.get(dimension_name=dimension_name)                 # main dimension
+    dimension_other = tm1_other.dimensions.get(dimension_name=dimension_name)                   # dimension to sync
+except:
+    raise SystemExit(f'No dimension named {dimension_name}')
+
 
 if dimension_master != dimension_other:                                                     # sync dimension
     print(f"Recognized changes. Updating dimension: '{dimension_master.name}'")         

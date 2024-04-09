@@ -32,7 +32,7 @@ with TM1Service(**config['tm1srv01']) as tm1:
           "NON EMPTY {TM1SUBSETALL( [}Groups] )} ON COLUMNS " \
           "FROM [}ClientGroups]"
     cube_content = tm1.cubes.cells.execute_mdx(mdx, ['Value'])
-
+    print(cube_content)
     used_groups = {cell['Value'] for cell in cube_content.values() if cell['Value'] != ''}
 
     # Determine the unused groups

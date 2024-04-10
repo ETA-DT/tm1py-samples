@@ -27,7 +27,6 @@ try:
 except:
     raise SystemExit(f'No dimension named {dimension_name}')
 
-
 if dimension_master != dimension_other:                                                         # sync dimension
     print(f"Recognized changes. Updating dimension: '{dimension_master.name}'")         
     tm1_other.dimensions.update(dimension_master)

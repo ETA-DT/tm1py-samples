@@ -1,9 +1,19 @@
+import os
+
 import configparser
 from getpass import getpass
 
 import keyring
 from TM1py import TM1Service
 
+
+def set_current_directory():
+    abspath = os.path.abspath(__file__)         # file absolute path
+    directory = os.path.dirname(abspath)        # current file parent directory
+    os.chdir(directory)
+    return directory
+
+CURRENT_DIRECTORY = set_current_directory()
 INSTANCE = "tm1srv01"
 
 config = configparser.ConfigParser()

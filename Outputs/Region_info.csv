@@ -1,33 +1,218 @@
 Hierarchy Name: Region
-Europe,World
-Americas,World
-Scandinavia,Europe
-Benelux,Europe
-Islands,Europe
-Central Europe,Europe
-Iberia,Europe
-Southern Europe,Europe
-Denmark,Scandinavia
-Norway,Scandinavia
-Sweden,Scandinavia
-Luxemburg,Benelux
-Netherlands,Benelux
-Belgium,Benelux
-Great Britain,Islands
-Ireland,Islands
-France,Central Europe
-Germany,Central Europe
-Portugal,Iberia
-Spain,Iberia
-Greece,Southern Europe
-Italy,Southern Europe
-North America,Americas
-South America,Americas
-Canada,North America
-Mexico,North America
-United States,North America
-Argentina,South America
-Brazil,South America
-Chile,South America
-Uruguay,South America
-"('Europe', 'World')","('Americas', 'World')","('Scandinavia', 'Europe')","('Benelux', 'Europe')","('Islands', 'Europe')","('Central Europe', 'Europe')","('Iberia', 'Europe')","('Southern Europe', 'Europe')","('Denmark', 'Scandinavia')","('Norway', 'Scandinavia')","('Sweden', 'Scandinavia')","('Luxemburg', 'Benelux')","('Netherlands', 'Benelux')","('Belgium', 'Benelux')","('Great Britain', 'Islands')","('Ireland', 'Islands')","('France', 'Central Europe')","('Germany', 'Central Europe')","('Portugal', 'Iberia')","('Spain', 'Iberia')","('Greece', 'Southern Europe')","('Italy', 'Southern Europe')","('North America', 'Americas')","('South America', 'Americas')","('Canada', 'North America')","('Mexico', 'North America')","('United States', 'North America')","('Argentina', 'South America')","('Brazil', 'South America')","('Chile', 'South America')","('Uruguay', 'South America')"
+Element Name: World Index: 1 Type: Consolidated
+Element Name: Europe Index: 2 Type: Consolidated
+Element Name: Scandinavia Index: 3 Type: Consolidated
+Element Name: Denmark Index: 4 Type: Numeric
+Element Name: Norway Index: 5 Type: Numeric
+Element Name: Sweden Index: 6 Type: Numeric
+Element Name: Benelux Index: 7 Type: Consolidated
+Element Name: Belgium Index: 8 Type: Numeric
+Element Name: Luxemburg Index: 9 Type: Numeric
+Element Name: Netherlands Index: 10 Type: Numeric
+Element Name: Islands Index: 11 Type: Consolidated
+Element Name: Great Britain Index: 12 Type: Numeric
+Element Name: Ireland Index: 13 Type: Numeric
+Element Name: Central Europe Index: 14 Type: Consolidated
+Element Name: France Index: 15 Type: Numeric
+Element Name: Germany Index: 16 Type: Numeric
+Element Name: Iberia Index: 17 Type: Consolidated
+Element Name: Portugal Index: 18 Type: Numeric
+Element Name: Spain Index: 19 Type: Numeric
+Element Name: Southern Europe Index: 20 Type: Consolidated
+Element Name: Greece Index: 21 Type: Numeric
+Element Name: Italy Index: 22 Type: Numeric
+Element Name: Americas Index: 23 Type: Consolidated
+Element Name: North America Index: 24 Type: Consolidated
+Element Name: Canada Index: 25 Type: Numeric
+Element Name: Mexico Index: 26 Type: Numeric
+Element Name: United States Index: 27 Type: Numeric
+Element Name: South America Index: 28 Type: Consolidated
+Element Name: Argentina Index: 29 Type: Numeric
+Element Name: Brazil Index: 30 Type: Numeric
+Element Name: Chile Index: 31 Type: Numeric
+Element Name: Uruguay Index: 32 Type: Numeric
+Subset Name: Americas
+Subset Name: CountryLevel
+Subset Name: Europe
+Subset Name: Region_leve1
+Subset Name: Region_Level_1
+Subset Name: Regions
+".Parent Name: World, Component Name: Europe"
+".Parent Name: World, Component Name: Americas"
+".Parent Name: Europe, Component Name: Scandinavia"
+".Parent Name: Europe, Component Name: Benelux"
+".Parent Name: Europe, Component Name: Islands"
+".Parent Name: Europe, Component Name: Central Europe"
+".Parent Name: Europe, Component Name: Iberia"
+".Parent Name: Europe, Component Name: Southern Europe"
+".Parent Name: Scandinavia, Component Name: Denmark"
+".Parent Name: Scandinavia, Component Name: Norway"
+".Parent Name: Scandinavia, Component Name: Sweden"
+".Parent Name: Benelux, Component Name: Luxemburg"
+".Parent Name: Benelux, Component Name: Netherlands"
+".Parent Name: Benelux, Component Name: Belgium"
+".Parent Name: Islands, Component Name: Great Britain"
+".Parent Name: Islands, Component Name: Ireland"
+".Parent Name: Central Europe, Component Name: France"
+".Parent Name: Central Europe, Component Name: Germany"
+".Parent Name: Iberia, Component Name: Portugal"
+".Parent Name: Iberia, Component Name: Spain"
+".Parent Name: Southern Europe, Component Name: Greece"
+".Parent Name: Southern Europe, Component Name: Italy"
+".Parent Name: Americas, Component Name: North America"
+".Parent Name: Americas, Component Name: South America"
+".Parent Name: North America, Component Name: Canada"
+".Parent Name: North America, Component Name: Mexico"
+".Parent Name: North America, Component Name: United States"
+".Parent Name: South America, Component Name: Argentina"
+".Parent Name: South America, Component Name: Brazil"
+".Parent Name: South America, Component Name: Chile"
+".Parent Name: South America, Component Name: Uruguay"
+Default Member: World
+Hierarchy Name: By Vice President
+Element Name: Uruguay Index: 1 Type: Numeric
+Element Name: Chile Index: 2 Type: Numeric
+Element Name: Brazil Index: 3 Type: Numeric
+Element Name: Argentina Index: 4 Type: Numeric
+Element Name: United States Index: 5 Type: Numeric
+Element Name: Mexico Index: 6 Type: Numeric
+Element Name: Canada Index: 7 Type: Numeric
+Element Name: Italy Index: 8 Type: Numeric
+Element Name: Greece Index: 9 Type: Numeric
+Element Name: Spain Index: 10 Type: Numeric
+Element Name: Portugal Index: 11 Type: Numeric
+Element Name: Germany Index: 12 Type: Numeric
+Element Name: France Index: 13 Type: Numeric
+Element Name: Ireland Index: 14 Type: Numeric
+Element Name: Great Britain Index: 15 Type: Numeric
+Element Name: Netherlands Index: 16 Type: Numeric
+Element Name: Luxemburg Index: 17 Type: Numeric
+Element Name: Belgium Index: 18 Type: Numeric
+Element Name: Sweden Index: 19 Type: Numeric
+Element Name: VP2 Index: 20 Type: Consolidated
+Element Name: Norway Index: 21 Type: Numeric
+Element Name: VP1 Index: 22 Type: Consolidated
+Element Name: Denmark Index: 23 Type: Numeric
+Element Name: All By Vice President Index: 24 Type: Consolidated
+".Parent Name: VP2, Component Name: Norway"
+".Parent Name: VP2, Component Name: Belgium"
+".Parent Name: VP2, Component Name: Netherlands"
+".Parent Name: VP2, Component Name: Ireland"
+".Parent Name: VP2, Component Name: Germany"
+".Parent Name: VP2, Component Name: Spain"
+".Parent Name: VP2, Component Name: Italy"
+".Parent Name: VP2, Component Name: Mexico"
+".Parent Name: VP2, Component Name: Argentina"
+".Parent Name: VP2, Component Name: Chile"
+".Parent Name: VP1, Component Name: Denmark"
+".Parent Name: VP1, Component Name: Sweden"
+".Parent Name: VP1, Component Name: Luxemburg"
+".Parent Name: VP1, Component Name: Great Britain"
+".Parent Name: VP1, Component Name: France"
+".Parent Name: VP1, Component Name: Portugal"
+".Parent Name: VP1, Component Name: Greece"
+".Parent Name: VP1, Component Name: Canada"
+".Parent Name: VP1, Component Name: United States"
+".Parent Name: VP1, Component Name: Brazil"
+".Parent Name: VP1, Component Name: Uruguay"
+".Parent Name: All By Vice President, Component Name: VP1"
+".Parent Name: All By Vice President, Component Name: VP2"
+Default Member: All By Vice President
+Hierarchy Name: H2 Reorg
+Element Name: Uruguay Index: 1 Type: Numeric
+Element Name: Chile Index: 2 Type: Numeric
+Element Name: Brazil Index: 3 Type: Numeric
+Element Name: All H2 Reorg Index: 4 Type: Consolidated
+Element Name: Americas Index: 5 Type: Consolidated
+Element Name: South America Index: 6 Type: Consolidated
+Element Name: Argentina Index: 7 Type: Numeric
+Element Name: United States Index: 8 Type: Numeric
+Element Name: Mexico Index: 9 Type: Numeric
+Element Name: North America Index: 10 Type: Consolidated
+Element Name: Canada Index: 11 Type: Numeric
+Element Name: Italy Index: 12 Type: Numeric
+Element Name: Southern Europe Index: 13 Type: Consolidated
+Element Name: Greece Index: 14 Type: Numeric
+Element Name: Spain Index: 15 Type: Numeric
+Element Name: Iberia Index: 16 Type: Consolidated
+Element Name: Portugal Index: 17 Type: Numeric
+Element Name: Germany Index: 18 Type: Numeric
+Element Name: Central Europe Index: 19 Type: Consolidated
+Element Name: France Index: 20 Type: Numeric
+Element Name: Ireland Index: 21 Type: Numeric
+Element Name: Islands Index: 22 Type: Consolidated
+Element Name: Great Britain Index: 23 Type: Numeric
+Element Name: Netherlands Index: 24 Type: Numeric
+Element Name: Luxemburg Index: 25 Type: Numeric
+Element Name: Benelux Index: 26 Type: Consolidated
+Element Name: Belgium Index: 27 Type: Numeric
+Element Name: Sweden Index: 28 Type: Numeric
+Element Name: Norway Index: 29 Type: Numeric
+Element Name: Scandinavia Index: 30 Type: Consolidated
+Element Name: Denmark Index: 31 Type: Numeric
+Element Name: Europe Index: 32 Type: Consolidated
+".Parent Name: All H2 Reorg, Component Name: Europe"
+".Parent Name: All H2 Reorg, Component Name: Americas"
+".Parent Name: Americas, Component Name: North America"
+".Parent Name: Americas, Component Name: South America"
+".Parent Name: South America, Component Name: Brazil"
+".Parent Name: South America, Component Name: Chile"
+".Parent Name: South America, Component Name: Uruguay"
+".Parent Name: North America, Component Name: Canada"
+".Parent Name: North America, Component Name: Mexico"
+".Parent Name: North America, Component Name: United States"
+".Parent Name: North America, Component Name: Argentina"
+".Parent Name: Southern Europe, Component Name: Greece"
+".Parent Name: Southern Europe, Component Name: Italy"
+".Parent Name: Iberia, Component Name: Portugal"
+".Parent Name: Iberia, Component Name: Spain"
+".Parent Name: Central Europe, Component Name: France"
+".Parent Name: Central Europe, Component Name: Germany"
+".Parent Name: Islands, Component Name: Great Britain"
+".Parent Name: Islands, Component Name: Ireland"
+".Parent Name: Benelux, Component Name: Belgium"
+".Parent Name: Benelux, Component Name: Luxemburg"
+".Parent Name: Benelux, Component Name: Netherlands"
+".Parent Name: Scandinavia, Component Name: Denmark"
+".Parent Name: Scandinavia, Component Name: Norway"
+".Parent Name: Scandinavia, Component Name: Sweden"
+".Parent Name: Europe, Component Name: Scandinavia"
+".Parent Name: Europe, Component Name: Southern Europe"
+".Parent Name: Europe, Component Name: Iberia"
+".Parent Name: Europe, Component Name: Central Europe"
+".Parent Name: Europe, Component Name: Islands"
+".Parent Name: Europe, Component Name: Benelux"
+Default Member: All H2 Reorg
+Hierarchy Name: Hiérarchie_adel_test
+Default Member: None
+Hierarchy Name: Leaves
+Element Name: Denmark Index: 1 Type: Numeric
+Element Name: Norway Index: 2 Type: Numeric
+Element Name: Sweden Index: 3 Type: Numeric
+Element Name: Belgium Index: 4 Type: Numeric
+Element Name: Luxemburg Index: 5 Type: Numeric
+Element Name: Netherlands Index: 6 Type: Numeric
+Element Name: Great Britain Index: 7 Type: Numeric
+Element Name: Ireland Index: 8 Type: Numeric
+Element Name: France Index: 9 Type: Numeric
+Element Name: Germany Index: 10 Type: Numeric
+Element Name: Portugal Index: 11 Type: Numeric
+Element Name: Spain Index: 12 Type: Numeric
+Element Name: Greece Index: 13 Type: Numeric
+Element Name: Italy Index: 14 Type: Numeric
+Element Name: Canada Index: 15 Type: Numeric
+Element Name: Mexico Index: 16 Type: Numeric
+Element Name: United States Index: 17 Type: Numeric
+Element Name: Argentina Index: 18 Type: Numeric
+Element Name: Brazil Index: 19 Type: Numeric
+Element Name: Chile Index: 20 Type: Numeric
+Element Name: Uruguay Index: 21 Type: Numeric
+Default Member: Denmark
+
+Cubes containing Region dimension:
+Sales
+Sales_Test
+TEST
+}ElementAttributes_Region
+}ElementSecurity_Region
+}PickList_TEST

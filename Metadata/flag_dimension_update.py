@@ -42,9 +42,33 @@ with TM1Service(**config['tm1srv01']) as tm1:
     # add the picklist attribute
     h.add_element_attribute('Pick list','String')
     tm1.dimensions.update(dimension)
-    option_list = 'static:Updated:Elements:Hierarchies:Subsets:Attributes Values:Elements/Hierarchies:Elements/Hierarchies/Subsets:Elements/Hierarchies/Attributes Values:Elements/Hierarchies/Subsets/Attributes Values:Elements/Subsets:Elements/Subsets/Attributes Values:Elements/Attributes Values'
-    element_attributes_cube = tm1.cubes.cells.write('}ElementAttributes_}DimensionProperties',cellset_as_dict={('TOUPDATE','Pick list'):'Static:a:b:c'},dimensions=['}DimensionProperties','}ElementAttributes_}DimensionProperties'])
 
+    if not(tm1.dimensions.exists('}Picklist')):
+        picklist_dim = TM1py.Dimension('}Picklist')
+        tm1.dimensions.create(picklist_dim)
+
+    if not(tm1.cubes.exists('}PickList_}DimensionProperties')):
+        option_list = 'static:'\
+                        'Updated:'\
+                        'Elements:'\
+                        'Hierarchies:'\
+                        'Subsets:'\
+                        'Attributes Values:'\
+                        'Elements/Hierarchies:'\
+                        'Elements/Hierarchies/Subsets:'\
+                        'Elements/Hierarchies/Attributes Values:'\
+                        'Elements/Hierarchies/Subsets/Attributes Values:'\
+                        'Elements/Subsets:'\
+                        'Elements/Subsets/Attributes Values:'\
+                        'Elements/Attributes Values'
+        rules = "SKIPCHECK;\n"\
+                "\n"\
+                f"['TOUPDATE'] = S: '{option_list}'; \n"\
+                "\n"\
+                "FEEDERS;"
+        picklist_cube = TM1py.Cube('}PickList_}DimensionProperties',['}Dimensions','}DimensionProperties','}Picklist'],rules=rules)
+        tm1.cubes.create(picklist_cube)
+    
 
     # write Hierarchy back to TM1
     tm1.dimensions.update(dimension)

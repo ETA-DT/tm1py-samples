@@ -37,12 +37,13 @@ for dimension_name in (dimension_name for dimension_name in tm1_master.elements.
     selected_sync_option = tm1_master.cells.get_value(cube_name='}DimensionProperties',elements=f"{dimension_name},TOUPDATE",dimensions=['}Dimensions','}DimensionProperties'])
     if selected_sync_option.lower() != 'updated':
         if 'elements' in selected_sync_option.lower():
-            print(f'UPDATING {dimension_name}')
+            print('ELEMENTS')
             if dimension_master != dimension_other:                                                         # sync dimension
                 print(f"Recognized changes. Updating dimension: '{dimension_master.name}'")         
                 tm1_other.dimensions.update(dimension_master)
 
         if 'hierarch' in selected_sync_option.lower():
+            print('HIERARCHY')
             hierarchy_names = tm1_master.hierarchies.get_all_names(dimension_name=dimension_name)
             for hierarchy_name in hierarchy_names:
                 hierarchy_master = tm1_master.hierarchies.get(dimension_name=dimension_name,hierarchy_name=hierarchy_name)
@@ -52,18 +53,21 @@ for dimension_name in (dimension_name for dimension_name in tm1_master.elements.
                     tm1_other.hierarchies.update(hierarchy_master)
 
         if 'subsets' in selected_sync_option.lower():
-            subsets_names = tm1_master.subsets.get_all_names(dimension_name)                                # sync subsets
-            for subsets_name in subsets_names:
-                subset_master = tm1_master.subsets.get(subsets_name, dimension_name=dimension_name)         # main subsets
-                if not(tm1_other.subsets.exists(subset_name=subsets_name, dimension_name=dimension_name)):
-                    print(f"Recognized changes. Creating Subset: '{subsets_name}'")
-                    tm1_other.subsets.create(subset=subset_master)
-                subset_other = tm1_other.subsets.get(subsets_name, dimension_name=dimension_name)           # subsets to sync
-                if subset_master != subset_other:
-                    print(f"Recognized changes. Updating Subset: '{subsets_name}'")
-                    tm1_other.subsets.update(subset_master)
+            print('SUBSEEEET')
+            for hierarchy_name in tm1_master.hierarchies.get_all_names(dimension_name=dimension_name):
+                subsets_names = tm1_master.subsets.get_all_names(dimension_name,hierarchy_name)                                # sync subsets
+                for subsets_name in subsets_names:
+                    subset_master = tm1_master.subsets.get(subsets_name, dimension_name=dimension_name,hierarchy_name=hierarchy_name)         # main subsets
+                    if not(tm1_other.subsets.exists(subset_name=subsets_name, dimension_name=dimension_name,hierarchy_name=hierarchy_name)):
+                        print(f"Recognized changes. Creating Subset: '{subsets_name}'")
+                        tm1_other.subsets.create(subset=subset_master)
+                    subset_other = tm1_other.subsets.get(subsets_name, dimension_name=dimension_name,hierarchy_name=hierarchy_name)           # subsets to sync
+                    if subset_master != subset_other:
+                        print(f"Recognized changes. Updating Subset: '{subsets_name}'")
+                        tm1_other.subsets.update(subset_master)
 
         if 'attributes' in selected_sync_option.lower():
+            print('ATTRIBUTES')
             cube_name = '}'+f'ElementAttributes_{dimension_name}'
             cube_attribute_master = tm1_master.cubes.get(cube_name=cube_name)
             cube_attribute_other  = tm1_other.cubes.get(cube_name=cube_name)

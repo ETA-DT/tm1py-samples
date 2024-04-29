@@ -69,8 +69,8 @@ with TM1Service(**config['tm1srv01']) as tm1:
         picklist_cube = TM1py.Cube('}PickList_}DimensionProperties',['}Dimensions','}DimensionProperties','}Picklist'],rules=rules)
         tm1.cubes.create(picklist_cube)
     
-    for element in (element for element in tm1.elements.get_element_names(dimension_name='}Dimensions',hierarchy_name='}Dimensions') if (':' not in element)):              # exclure les hiérarchies
-        tm1.cells.write_value(value='Updated',cube_name='}DimensionProperties',element_tuple=(element,'TOUPDATE'),dimensions=['}Dimensions','}DimensionProperties'])
+    # for element in (element for element in tm1.elements.get_element_names(dimension_name='}Dimensions',hierarchy_name='}Dimensions') if (':' not in element)):              # exclure les hiérarchies
+    #     tm1.cells.write_value(value='Updated',cube_name='}DimensionProperties',element_tuple=(element,'TOUPDATE'),dimensions=['}Dimensions','}DimensionProperties'])
 
     # write Hierarchy back to TM1
     tm1.dimensions.update(dimension)

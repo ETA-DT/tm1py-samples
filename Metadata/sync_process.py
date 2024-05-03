@@ -1,9 +1,7 @@
-"""
-Query a Process from the TM1 model
+""" 
+Get a Process from TM1. Update it. Push it back to TM1.
 """
 import configparser
-
-from TM1py.Services import TM1Service
 import os
 from TM1py.Services import TM1Service
 
@@ -21,14 +19,20 @@ config = configparser.ConfigParser()
 config.read(r'..\config.ini')
 
 # connection to TM1 Server
-with TM1Service(**config['tm1srv01']) as tm1:
-    # read Process
-    p = tm1.processes.get('tm1py_test')
+tm1_master = TM1Service(**config['tm1srv01'])
+tm1_other = TM1Service(**config['tm1srv02'])
 
-    # print variables, parameters, ...
-    print('Parameters: \r\n' + str(p.parameters))
-    print('Variables: \r\n' + str(p.variables))
-    print('Prolog: \r\n' + str(p.prolog_procedure))
-    print('Metadata: \r\n' + str(p.metadata_procedure))
-    print('Data: \r\n' + str(p.data_procedure))
-    print('Epilog: \r\n' + str(p.epilog_procedure))
+# read process
+p_master = tm1_master.processes.get('TM1py process')
+p_other = tm1_other.processes.get('TM1py process')
+
+print(p_master.prolog_procedure)
+
+    # # modify process
+    # p.datasource_type = 'None'
+    # p.epilog_procedure = "nRevenue = 100000;\r\nsCostCenter = 'UK01';"
+    # # p.remove_parameter('pCompanyCode')
+    # # p.add_parameter('pBU', prompt='', value='UK02')
+
+    # # update
+    # tm1.processes.update(p)

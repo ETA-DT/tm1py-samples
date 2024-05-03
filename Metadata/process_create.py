@@ -2,10 +2,18 @@
 Create a TI process in TM1
 """
 import configparser
+import os
 
 from TM1py.Objects import Process
 from TM1py.Services import TM1Service
 
+def set_current_directory():
+    abspath = os.path.abspath(__file__)         # file absolute path
+    directory = os.path.dirname(abspath)        # current file parent directory
+    os.chdir(directory)
+    return directory
+
+CURRENT_DIRECTORY = set_current_directory()
 config = configparser.ConfigParser()
 # storing the credentials in a file is not recommended for purposes other than testing.
 # it's better to setup CAM with SSO or use keyring to store credentials in the windows credential manager. Sample:
@@ -13,7 +21,7 @@ config = configparser.ConfigParser()
 config.read(r'..\config.ini')
 
 # connection to TM1 Server
-with TM1Service(**config['tm1srv01']) as tm1:
+with TM1Service(**config['tm1srv02']) as tm1:
     process_name = 'TM1py process'
 
     # create new Process in python

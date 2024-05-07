@@ -35,7 +35,7 @@ for dimension_name in (dimension_name for dimension_name in tm1_master.elements.
         continue
 
     selected_sync_option = tm1_master.cells.get_value(cube_name='}DimensionProperties',elements=f"{dimension_name},TOUPDATE",dimensions=['}Dimensions','}DimensionProperties'])
-    if selected_sync_option.lower() != 'updated':
+    if selected_sync_option.lower() != '':
         if 'elements' in selected_sync_option.lower():
             if dimension_master != dimension_other:                                                         # sync dimension
                 print(f"Recognized changes. Updating dimension: '{dimension_master.name}'")         

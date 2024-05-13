@@ -4,6 +4,7 @@ Get a Process from TM1. Update it. Push it back to TM1.
 import configparser
 import os
 from TM1py.Services import TM1Service
+from operator import itemgetter
 
 def set_current_directory():
     abspath = os.path.abspath(__file__)         # file absolute path
@@ -22,17 +23,15 @@ config.read(r'..\config.ini')
 tm1_master = TM1Service(**config['tm1srv01'])
 tm1_other = TM1Service(**config['tm1srv02'])
 
+try:
+    process_name = input('Which process to synchronize ? ')
+except:
+    raise SystemExit(f'No process named {process_name}') 
+
 # read process
-p_master = tm1_master.processes.get('TM1py process')
-p_other = tm1_other.processes.get('TM1py process')
+p_master = tm1_master.processes.get(process_name)
+p_other = tm1_other.processes.get(process_name)
 
-print(p_master.prolog_procedure)
+tm1_other.processes.delete(process_name)
+tm1_other.processes.create(p_master)
 
-    # # modify process
-    # p.datasource_type = 'None'
-    # p.epilog_procedure = "nRevenue = 100000;\r\nsCostCenter = 'UK01';"
-    # # p.remove_parameter('pCompanyCode')
-    # # p.add_parameter('pBU', prompt='', value='UK02')
-
-    # # update
-    # tm1.processes.update(p)

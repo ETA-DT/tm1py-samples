@@ -53,5 +53,5 @@ for series_code in europe_series_codes:
         coordinates = ("Europe",month, series_code)
         cellset[coordinates] = float(external_factors_monthly.loc[month][series_code])
 
-    with TM1Service(**config['tm1srv02']) as tm1:
+    with TM1Service(**config['tm1srv03']) as tm1:
         tm1.cubes.cells.write_values(cube_name, cellset)

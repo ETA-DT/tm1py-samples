@@ -10,12 +10,21 @@ Prerequisites:
 """
 import collections
 import configparser
+
 from datetime import datetime
 
 # type 'pip install pandas_datareader' into cmd if you don't have pandas_datareader installed
 import pandas_datareader.data as web
 from TM1py.Services import TM1Service
+import os
 
+def set_current_directory():
+    abspath = os.path.abspath(__file__)         # file absolute path
+    directory = os.path.dirname(abspath)        # current file parent directory
+    os.chdir(directory)
+    return directory
+
+CURRENT_DIRECTORY = set_current_directory()
 config = configparser.ConfigParser()
 # storing the credentials in a file is not recommended for purposes other than testing.
 # it's better to setup CAM with SSO or use keyring to store credentials in the windows credential manager. Sample:
@@ -58,7 +67,7 @@ for currency_ticker, currency_details in currency_pairs.items():
             value = 1 / data.values[0]
         else:
             value = data.values[0]
-        coordinates = (currency_details["From"], currency_details["To"], my_year, my_month, 'Month Close')
+        coordinates = ('Europe', currency_details["To"], my_year, my_month, 'Month Close')
         cellset[coordinates] = value
-    with TM1Service(**config['tm1srv01']) as tm1:
+    with TM1Service(**config['tm1srv02']) as tm1:
         tm1.cubes.cells.write_values(cube_name, cellset)

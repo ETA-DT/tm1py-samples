@@ -11,7 +11,15 @@ import xml.etree.ElementTree as ET
 
 import requests
 from TM1py.Services import TM1Service
+import os
 
+def set_current_directory():
+    abspath = os.path.abspath(__file__)         # file absolute path
+    directory = os.path.dirname(abspath)        # current file parent directory
+    os.chdir(directory)
+    return directory
+
+CURRENT_DIRECTORY = set_current_directory()
 config = configparser.ConfigParser()
 # storing the credentials in a file is not recommended for purposes other than testing.
 # it's better to setup CAM with SSO or use keyring to store credentials in the windows credential manager. Sample:
@@ -46,5 +54,5 @@ for child in root.iter('{http://www.ecb.int/vocabulary/2002-08-01/eurofxref}Cube
         coordinates = ('EUR', child.get('currency'), date, 'Spot')
         cellset[coordinates] = child.get('rate')
 
-with TM1Service(**config['tm1srv01']) as tm1:
+with TM1Service(**config['tm1srv02']) as tm1:
     tm1.cubes.cells.write_values(cube_name, cellset)

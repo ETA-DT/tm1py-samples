@@ -14,25 +14,37 @@ import configparser
 # type 'pip install quandl' into cmd if you don't have quandl installed
 import quandl
 from TM1py.Services import TM1Service
+import os
 
+def set_current_directory():
+    abspath = os.path.abspath(__file__)         # file absolute path
+    directory = os.path.dirname(abspath)        # current file parent directory
+    os.chdir(directory)
+    return directory
+
+CURRENT_DIRECTORY = set_current_directory()
 config = configparser.ConfigParser()
 # storing the credentials in a file is not recommended for purposes other than testing.
 # it's better to setup CAM with SSO or use keyring to store credentials in the windows credential manager. Sample:
 # Samples/credentials_best_practice.py
 config.read(r'..\config.ini')
+with TM1Service(**config['tm1srv02']) as tm1:
+    financial_instrument_elems = tm1.elements.get_element_names('TM1py Financial Instrument','TM1py Financial Instrument')
 
-# load Stock data for IBM
-data = quandl.get("WIKI/IBM", start_date='2015-01-01', end_date='2017-08-11')
+for instru in financial_instrument_elems:
+    # load Stock data for IBM
+    data = quandl.get("WIKI/"+instru, start_date='1991-01-01', end_date='2013-31-12')
+    data['Year'] = [str(full_date)[:4] for full_date in list(data.index)]
+    data = data.groupby('Year').mean()
 
-# create cellset from raw data
-cube = 'TM1py Stock Prices'
-measures = ('Open', 'High', 'Low', 'Close', 'Volume', 'Adj. Open', 'Adj. High', 'Adj. Low', 'Adj. Close', 'Adj. Volume')
-cellset = {}
-for tmstp, row in data.iterrows():
-    date = tmstp.date()
-    for measure in measures:
-        cellset[('IBM', str(date), measure)] = row[measure]
+    # create cellset from raw data
+    cube = 'TM1py Stock Prices'
+    measures = ('Open', 'High', 'Low', 'Close', 'Volume', 'Adj. Open', 'Adj. High', 'Adj. Low', 'Adj. Close', 'Adj. Volume')
+    cellset = {}
+    for tmstp, row in data.iterrows():
+        for measure in measures:
+            cellset[(instru, str(tmstp), measure)] = row[measure]
 
-# push data to TM1
-with TM1Service(**config['tm1srv01']) as tm1:
-    tm1.cubes.cells.write_values(cube, cellset)
+    # push data to TM1
+    with TM1Service(**config['tm1srv02']) as tm1:
+        tm1.cubes.cells.write_values(cube, cellset)

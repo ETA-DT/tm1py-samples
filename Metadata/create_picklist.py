@@ -23,6 +23,7 @@ config.read(r'..\config.ini')
 
 dimension_name = "TM1py_outputs"
 context_dim = "TM1py_Scripts"
+cube_name = "TM1py_output"
 
 # Connection to TM1. Needs Address, Port, Credentials, and SSL
 with TM1Service(**config['tm1srv03']) as tm1:
@@ -49,7 +50,7 @@ with TM1Service(**config['tm1srv03']) as tm1:
         picklist_dim = TM1py.Dimension('}Picklist')
         tm1.dimensions.create(picklist_dim)
 
-    if not(tm1.cubes.exists('}PickList_'+ dimension_name)):
+    if not(tm1.cubes.exists('}PickList_'+ cube_name)):
         option_list = 'static:'\
                         'Updated:'\
                         'Elements:'\

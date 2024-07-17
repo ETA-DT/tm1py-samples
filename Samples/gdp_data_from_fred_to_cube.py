@@ -13,7 +13,15 @@ import math
 # type 'pip install quandl' into cmd if you don't have quandl installed
 import quandl
 from TM1py.Services import TM1Service
+import os
 
+def set_current_directory():
+    abspath = os.path.abspath(__file__)         # file absolute path
+    directory = os.path.dirname(abspath)        # current file parent directory
+    os.chdir(directory)
+    return directory
+
+CURRENT_DIRECTORY = set_current_directory()
 config = configparser.ConfigParser()
 # storing the credentials in a file is not recommended for purposes other than testing.
 # it's better to setup CAM with SSO or use keyring to store credentials in the windows credential manager. Sample:
@@ -21,8 +29,7 @@ config = configparser.ConfigParser()
 config.read(r'..\config.ini')
 
 data_raw = quandl.get("FRED/GDP")
-data = data_raw.ix["1990-01-01":"2017-12-31"]
-
+data = data_raw["1991-01-01":"2023-12-31"]
 # create cellset and push it to Econ Cube
 cellset = {}
 for tmstp, row_data in data.iterrows():
@@ -33,5 +40,5 @@ for tmstp, row_data in data.iterrows():
     value = row_data.values[0]
     cellset[coordinates] = value
 
-with TM1Service(**config['tm1srv01']) as tm1:
-    tm1.cubes.cells.write_values('TM1py Econ', cellset)
+with TM1Service(**config['tm1srv02']) as tm1:
+    tm1.cubes.cells.write_values('TM1py Econ',cellset)

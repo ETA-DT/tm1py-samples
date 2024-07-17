@@ -7,8 +7,23 @@ Create all cubes and dimensions thar are required for the Load Data Samples:
 
 """
 import configparser
-from datetime import timedelta, date
+from datetime import timedelta, date, datetime
+import os
+import pandas as pd
+from TM1py.Services import TM1Service
 
+def set_current_directory():
+    abspath = os.path.abspath(__file__)         # file absolute path
+    directory = os.path.dirname(abspath)        # current file parent directory
+    os.chdir(directory)
+    return directory
+
+CURRENT_DIRECTORY = set_current_directory()
+config = configparser.ConfigParser()
+# storing the credentials in a file is not recommended for purposes other than testing.
+# it's better to setup CAM with SSO or use keyring to store credentials in the windows credential manager. Sample:
+# Samples/credentials_best_practice.py
+config.read(r'..\config.ini')
 from TM1py.Objects import Cube, Dimension, Hierarchy, Element
 from TM1py.Services import TM1Service
 
@@ -26,7 +41,7 @@ def daterange(start_date, end_date):
 
 
 # push data to TM1
-with TM1Service(**config['tm1srv01']) as tm1:
+with TM1Service(**config['tm1srv02']) as tm1:
     # ============================
     # create TM1 objects for fx rates sample
     currencies = ('RMB', 'EUR', 'JPY', 'CHF', 'USD', 'AUD', 'TWD', 'HKD', 'GBP', 'SGD', 'INR')
@@ -112,7 +127,7 @@ with TM1Service(**config['tm1srv01']) as tm1:
         tm1.dimensions.create(dimension)
 
     # create cube TM1py Econ
-    cube = Cube('TM1py Econ', ['TM1py Country', 'TM1py Year', 'TM1py Quarter', 'TM1py Econ Measure'])
+    cube = Cube('TM1py Econ', ['TM1py Country', 'Years_et', 'TM1py Quarter', 'TM1py Econ Measure'])
     if not tm1.cubes.exists(cube.name):
         tm1.cubes.create(cube)
 
@@ -137,6 +152,56 @@ with TM1Service(**config['tm1srv01']) as tm1:
         tm1.dimensions.create(dimension)
 
     # create cube TM1py Stock Prices
-    cube = Cube('TM1py Stock Prices', ['TM1py Financial Instrument', 'TM1py Date', 'TM1py Stock Prices Measure'])
+    cube = Cube('TM1py Stock Prices', ['TM1py Financial Instrument', 'Years_et', 'TM1py Stock Prices Measure'])
     if not tm1.cubes.exists(cube.name):
         tm1.cubes.create(cube)
+
+    # ============================
+    # create TM1 objects for External_macro
+
+    # create dimension External_measures
+    elements = []
+    europe_series_codes = [
+    "LRHUTTTTEZM156S",  # Harmonized Unemployment Rate: Total: All Persons for the Euro Area
+    "XTEXVA01EZM667S",  # Exports of Goods: Total for the Euro Area
+    "XTIMVA01EZM667S",  # Imports of Goods: Total for the Euro Area
+    "IRLTLT01EZM156N"  # Long-Term Government Bond Yields: 10-year: Main (Including Benchmark) for the Euro Area
+    ]
+    for code in europe_series_codes:
+        elements.append(Element(code, 'Numeric'))
+    
+    hierarchy = Hierarchy('External_measures', 'External_measures', elements)
+    dimension = Dimension('External_measures', [hierarchy])
+    if not tm1.dimensions.exists(dimension.name):
+        tm1.dimensions.create(dimension)
+    
+    # create cube External_macro
+    cube = Cube('External_macro', ['Region_et', 'Years_et', 'External_measures'])
+    if not tm1.cubes.exists(cube.name):
+        tm1.cubes.create(cube)
+
+
+    # ============================
+    # create TM1 objects for External_macro_monthly
+
+    # create dimension Mon-Ye
+    elements = []
+    start = datetime(year=1991,month=1,day=1)
+    end = datetime(year=2019,month=12,day=31)
+    datelist = pd.date_range(start,end,freq='ME').tolist()
+    datelist = list(map(lambda x : x.strftime("%b-%y"),datelist))
+    datelist
+
+    for month in datelist:
+        elements.append(Element(month, 'Numeric'))
+    
+    hierarchy = Hierarchy('Month_year', 'Month_year', elements)
+    dimension = Dimension('Month_year', [hierarchy])
+    if not tm1.dimensions.exists(dimension.name):
+        tm1.dimensions.create(dimension)
+    
+    # create cube External_macro_monthly
+    cube = Cube('External_macro_monthly', ['Region_et', 'Month_year', 'External_measures'])
+    if not tm1.cubes.exists(cube.name):
+        tm1.cubes.create(cube)
+    
